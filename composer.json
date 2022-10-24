@@ -1,0 +1,19 @@
+{
+    "name": "jinom/payment",
+    "description": "Jinom Payment Gateway",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Jinom\\Payment\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "I Wayan Rupadana",
+            "email": "rupadanawayan@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.5.8 || ^7.4.5"
+    }
+}
