@@ -126,7 +126,7 @@ class Transaction {
             return $this->transaction_details['payment_code'];
         } else if($payment_type == Transaction::ECHANNEL) 
         {
-            return $this->transaction_details['biller_code']['bill_key'];
+            return $this->transaction_details['biller_code'] . $this->transaction_details['bill_key'];
         }
         
         return "";
