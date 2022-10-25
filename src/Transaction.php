@@ -110,6 +110,19 @@ class Transaction {
         if($payment_type == Transaction::BANK_TRANSFER) {
             return $this->transaction_details['va_numbers'][0]['bank'];
         } else if($payment_type == Transaction::CSTORE) {
+            return $this->transaction_details['store'];
+        } else if($payment_type == Transaction::ECHANNEL) 
+        {
+            return Transaction::MANDIRI;
+        }
+    }
+
+    public function getRequestPaymentListAlias() {
+        $payment_type = $this->transaction_details["payment_type"];
+
+        if($payment_type == Transaction::BANK_TRANSFER) {
+            return $this->transaction_details[Transaction::BANK_TRANSFER]['bank'];
+        } else if($payment_type == Transaction::CSTORE) {
             return $this->transaction_details['cstore']['store'];
         } else if($payment_type == Transaction::ECHANNEL) 
         {
@@ -126,7 +139,7 @@ class Transaction {
             return $this->transaction_details['payment_code'];
         } else if($payment_type == Transaction::ECHANNEL) 
         {
-            return $this->transaction_details['biller_code'] . $this->transaction_details['bill_key'];
+            return $this->transaction_details['biller_code']['bill_key'];
         }
         
         return "";
