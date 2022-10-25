@@ -17,6 +17,7 @@ class Transaction {
     public $created_by = null;
     public $transaction = null;
     public $expired_at = null;
+    public $created_at = null;
 
     const CSTORE = 'cstore';
     const ECHANNEL = 'echannel';
@@ -61,6 +62,10 @@ class Transaction {
         $this->item_details = $item_details;
     }
 
+    public function setCreatedAt($date) {
+        $this->created_at = $date;
+    }
+
     public function setCreatedBy($created_by)
     {
         $this->created_by = $created_by;
@@ -80,6 +85,10 @@ class Transaction {
         return $this->transaction;
     }
 
+    public function setTransaction($transaction) {
+        $this->transaction = $transaction;
+    }
+
     public function getPaymentMethod() {
         $payment_type = $this->transaction_details["payment_type"];
 
@@ -95,6 +104,19 @@ class Transaction {
         return "";
     }
 
+    public function getPaymentListAlias() {
+        $payment_type = $this->transaction_details["payment_type"];
+
+        if($payment_type == Transaction::BANK_TRANSFER) {
+            return $this->transaction_details['va_numbers'][0]['bank'];
+        } else if($payment_type == Transaction::CSTORE) {
+            return $this->transaction_details['cstore']['store'];
+        } else if($payment_type == Transaction::ECHANNEL) 
+        {
+            return Transaction::MANDIRI;
+        }
+    }
+
     public function getPaymentCode() {
         $payment_type = $this->transaction_details["payment_type"];
 
@@ -104,7 +126,7 @@ class Transaction {
             return $this->transaction_details['payment_code'];
         } else if($payment_type == Transaction::ECHANNEL) 
         {
-            return $this->transaction_details['biller_code'] . $this->transaction_details['bill_key'];
+            return $this->transaction_details['biller_code']['bill_key'];
         }
         
         return "";

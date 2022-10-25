@@ -8,14 +8,30 @@ use Jinom\Payment\Transaction;
 
 trait Snap {
 
-    public function buildParam() {
-        $param = [
-            "transaction_details" => $this->transaction_details,
-            "customer_details" => $this->customer_details,
-            "item_details" => $this->item_details
-        ];
+    public function buildParam($params = []) {
 
-        return $param;
+        $params['transaction_details'] = $this->transaction_details;
+        $params['customer_details'] = $this->customer_details;
+        $params['item_details'] = $this->item_details;
+
+        $params = $this->addExpiryParam($params);
+
+        return $params;
+    }
+
+    public function addExpiryParam($params) {
+        if($this->expired_at) {
+            $mils = strtotime($this->expired_at) - strtotime($this->created_at);
+
+            $params['custom_expiry'] = [
+                'order_time' => date('Y-m-d H:i:s +0800', strtotime($this->created_at)),
+                'expiry_duration' => $mils / 60,
+                'unit' => 'minute'
+            ];
+
+        }
+
+        return $params;
     }
 
     public function createSnapToken(Transaction $transaction) {

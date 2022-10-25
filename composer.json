@@ -2,6 +2,7 @@
     "name": "jinom/payment",
     "description": "Jinom Payment Gateway",
     "type": "package",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Jinom\\Payment\\": "src/"
