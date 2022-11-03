@@ -14,7 +14,12 @@ trait Snap {
         $params['customer_details'] = $this->customer_details;
         $params['item_details'] = $this->item_details;
 
+        if($this->created_by) {
+            $params['created_by'] = $this->created_by;
+        }
+
         $params = $this->addExpiryParam($params);
+        
 
         return $params;
     }

@@ -118,15 +118,18 @@ class Transaction {
     }
 
     public function getRequestPaymentListAlias() {
-        $payment_type = $this->transaction_details["payment_type"];
-
-        if($payment_type == Transaction::BANK_TRANSFER) {
-            return $this->transaction_details[Transaction::BANK_TRANSFER]['bank'];
-        } else if($payment_type == Transaction::CSTORE) {
-            return $this->transaction_details['cstore']['store'];
-        } else if($payment_type == Transaction::ECHANNEL) 
-        {
-            return Transaction::MANDIRI;
+        if(isset($this->transaction_details["payment_type"])) {
+            $payment_type = $this->transaction_details["payment_type"];
+            if($payment_type == Transaction::BANK_TRANSFER) {
+                return $this->transaction_details[Transaction::BANK_TRANSFER]['bank'];
+            } else if($payment_type == Transaction::CSTORE) {
+                return $this->transaction_details['cstore']['store'];
+            } else if($payment_type == Transaction::ECHANNEL) 
+            {
+                return Transaction::MANDIRI;
+            }
+        } else {
+            return '';
         }
     }
 
