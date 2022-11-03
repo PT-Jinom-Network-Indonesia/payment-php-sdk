@@ -4,15 +4,16 @@ namespace Jinom\Payment;
 
 use Jinom\Payment\Traits\CreateCustomerDetail;
 use Jinom\Payment\Traits\CreateItemDetail;
+use Jinom\Payment\Traits\CreateOrderId;
 use Jinom\Payment\Traits\CreateTransactionDetail;
 use Jinom\Payment\Traits\Snap;
 
 class Transaction {
 
-    use Snap, CreateItemDetail, CreateTransactionDetail, CreateCustomerDetail;
+    use Snap, CreateItemDetail, CreateTransactionDetail, CreateCustomerDetail, CreateOrderId;
 
     public $customer_details = [];
-    public $transaction_details = [];
+    public $transaction_details;
     public $item_details = [];
     public $created_by = null;
     public $transaction = null;
@@ -50,6 +51,10 @@ class Transaction {
         $this->transaction_details = $transaction_details;
 
         if (isset($transaction_details['expired_at'])) $this->setExpiredDate($transaction_details['expired_at']);
+    }
+
+    public function setOrderId($order_id) {
+        $this->transaction_details['order_id'] = $order_id;
     }
 
     public function setExpiredDate($expired_at)
@@ -110,7 +115,7 @@ class Transaction {
         if($payment_type == Transaction::BANK_TRANSFER) {
             return $this->transaction_details['va_numbers'][0]['bank'];
         } else if($payment_type == Transaction::CSTORE) {
-            return $this->transaction_details['store'];
+            return $this->transaction_details['cstore']['store'];
         } else if($payment_type == Transaction::ECHANNEL) 
         {
             return Transaction::MANDIRI;
@@ -142,7 +147,7 @@ class Transaction {
             return $this->transaction_details['payment_code'];
         } else if($payment_type == Transaction::ECHANNEL) 
         {
-            return $this->transaction_details['biller_code']['bill_key'];
+            return $this->transaction_details['biller_code'] . $this->transaction_details['bill_key'];
         }
         
         return "";

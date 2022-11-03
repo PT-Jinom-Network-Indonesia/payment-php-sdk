@@ -23,7 +23,7 @@ trait Snap {
 
         return $params;
     }
-
+    
     public function addExpiryParam($params) {
         if($this->expired_at) {
             $mils = strtotime($this->expired_at) - strtotime($this->created_at);
