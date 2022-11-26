@@ -25,7 +25,4 @@ class JinomPayment
     public function createEmptyTransaction() {
         return new Transaction();
     }
-
-
-
 }

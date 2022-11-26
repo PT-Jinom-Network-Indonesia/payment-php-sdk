@@ -13,7 +13,7 @@ class Transaction {
     use Snap, CreateItemDetail, CreateTransactionDetail, CreateCustomerDetail, CreateOrderId;
 
     public $customer_details = [];
-    public $transaction_details;
+    public $transaction_details = [];
     public $item_details = [];
     public $created_by = null;
     public $transaction = null;
@@ -56,7 +56,6 @@ class Transaction {
     public function setOrderId($order_id) {
         $this->transaction_details['order_id'] = $order_id;
     }
-
     public function setExpiredDate($expired_at)
     {
         $this->expired_at = $expired_at;
