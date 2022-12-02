@@ -18,6 +18,10 @@ trait Snap {
             $params['created_by'] = $this->created_by;
         }
 
+        if(isset($params['bank_transfer']) && isset($params['bank_transfer']['va_number'])) {
+            $params['bank_transfer']['va_number'] = preg_replace("/[^0-9]/", "",  $params['bank_transfer']['va_number']);
+        }
+
         $params = $this->addExpiryParam($params);
 
         return $params;
