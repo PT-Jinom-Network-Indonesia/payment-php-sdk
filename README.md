@@ -6,6 +6,48 @@
 composer require jinomdeveloper/payment-php-sdk
 ```
 
+## Environment
+
+U can set ``SERVER_KEY`` and Is it Production to ``JinomPayment`` class
+
+example
+
+```php
+$jinom_payment = new \Jinom\Payment\JinomPayment('YOUR SERVER_KEY', 'IS PRODUCTION');
+```
+
+or
+
+if you using ``Laravel`` please use this config and save it as ``jinompay.php``
+
+```php
+<?php
+
+return [
+
+    "server_key" => env("JINOM_PAYMENT_KEY", ""),
+
+    "is_production" => env("JINOM_PAYMENT_IS_PRODUCTION", false),
+
+    "base_url" => env("JINOM_PAYMENT_IS_PRODUCTION", false) ? "https://payment.jinom.net" : "https://va.sandbox.jinom.net",
+];  
+```
+
+don't forget to add it to the ``.env``.
+
+```
+JINOM_PAYMENT_KEY=
+JINOM_PAYMENT_IS_PRODUCTION=
+JINOM_PAYMENT_IS_PRODUCTION=
+```
+
+### Implement the configuration
+
+```php
+$jinom_payment = new \Jinom\Payment\JinomPayment(config('jinompay.server_key'), config('jinompay.is_production'));
+```
+
+
 ## Usage
 
 ```php
