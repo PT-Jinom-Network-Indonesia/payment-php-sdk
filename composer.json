@@ -1,5 +1,5 @@
 {
-    "name": "jinom/payment",
+    "name": "jinomdeveloper/payment-php-sdk",
     "description": "Jinom Payment Gateway",
     "type": "package",
     "autoload": {
