@@ -15,4 +15,11 @@ trait CreateTransactionDetail {
 
         return $param;
     }
+
+    public function setTransactionDetails($transaction_details)
+    {
+        $this->transaction_details = $transaction_details;
+
+        if (isset($transaction_details['expired_at'])) $this->setExpiredDate($transaction_details['expired_at']);
+    }
 }

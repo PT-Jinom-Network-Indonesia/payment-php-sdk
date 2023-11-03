@@ -2,6 +2,7 @@
 
 namespace Jinom\Payment;
 
+use Jinom\Payment\Traits\Charge;
 use Jinom\Payment\Traits\CreateCustomerDetail;
 use Jinom\Payment\Traits\CreateItemDetail;
 use Jinom\Payment\Traits\CreateOrderId;
@@ -41,29 +42,9 @@ class Transaction {
     {
     }
 
-    public function setCustomerDetails($customer_details)
-    {
-        $this->customer_details = $customer_details;
-    }
-
-    public function setTransactionDetails($transaction_details)
-    {
-        $this->transaction_details = $transaction_details;
-
-        if (isset($transaction_details['expired_at'])) $this->setExpiredDate($transaction_details['expired_at']);
-    }
-
-    public function setOrderId($order_id) {
-        $this->transaction_details['order_id'] = $order_id;
-    }
     public function setExpiredDate($expired_at)
     {
         $this->expired_at = $expired_at;
-    }
-
-    public function setItemDetails($item_details)
-    {
-        $this->item_details = $item_details;
     }
 
     public function setCreatedAt($date) {

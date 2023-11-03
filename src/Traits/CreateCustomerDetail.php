@@ -13,4 +13,9 @@ trait CreateCustomerDetail {
 
         return $customer;
     }
+
+    public function setCustomerDetails($customer_details)
+    {
+        $this->customer_details = $customer_details;
+    }
 }

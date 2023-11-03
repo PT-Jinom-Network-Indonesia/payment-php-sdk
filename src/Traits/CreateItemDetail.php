@@ -13,4 +13,10 @@ trait CreateItemDetail {
 
         return $item;
     }
+
+
+    public function setItemDetails($item_details)
+    {
+        $this->item_details = $item_details;
+    }
 }

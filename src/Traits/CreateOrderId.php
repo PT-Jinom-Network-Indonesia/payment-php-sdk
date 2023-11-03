@@ -7,4 +7,8 @@ trait CreateOrderId {
         $order_id = "$prefix" . date("YmdHis") . $suffix;
         return $order_id;
     }
+
+    public function setOrderId($order_id) {
+        $this->transaction_details['order_id'] = $order_id;
+    }
 }
